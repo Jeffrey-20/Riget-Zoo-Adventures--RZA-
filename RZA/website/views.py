@@ -1,61 +1,76 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm, LoginForm
-from django.contrib.auth.models import auth
-from django.contrib.auth import authenticate
-
-
-# Create your views here.
-
-def home(request):
-    return render(request,'pages/index.html')
-
-def navbar(request):
-    return render(request,'components/navbar.html')
-
-# register a user
-
+from .models import Record
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm
+from .forms import CreateUserForm, LoginForm, CreateRecordForm
 
-#registering 
+
+# Home page
+def home(request):
+    return render(request, 'pages/index.html')
+
+
+# Register a user
 def register(request):
-    form = CreateUserForm()
-
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('my-login')  
+            form.save()   # ✅ hashes password properly
+            return redirect('my-login')
+    else:
+        form = CreateUserForm()
 
     context = {'form': form}
     return render(request, 'pages/register.html', context)
 
-# logging in
 
+# Login
 def my_login(request):
-    form= LoginForm
-
     if request.method == "POST":
         form = LoginForm(request, data=request.POST)
-
         if form.is_valid():
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+            user = form.get_user()   # ✅ AuthenticationForm handles authenticate
+            login(request, user)
+            return redirect('dashboard')
+    else:
+        form = LoginForm()
 
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                auth.login(request, user)
     context = {'login_form': form}
-    return render(request,'pages/my-login.html', context=context)
+    return render(request, 'pages/my-login.html', context)
 
 
-# logout 
+# Logout
 def user_logout(request):
-    auth.logout(request)
+    logout(request)
     return redirect('my-login')
 
-#
+
+# Dashboard (protected page)
+@login_required(login_url='my-login')
+def dashboard(request):
+    my_records = Record.objects.all()
+    context = {'records':my_records}
+
+    return render(request, 'pages/dashboard.html')
+
+# Creating a record
+@login_required(login_url='my-login')
+def create_record(request):
+
+    form = CreateRecordForm()
+    if request.method == "POST":
+        form = CreateRecordForm(request.POST)
+        if form.is_valid():
+            form.save()  # ✅ This saves to the database
+            return redirect('dashboard')
+        else:
+            form = CreateRecordForm()
+    context = {'form': form}
+    return render(request, 'pages/create_record.html', context)
+
+
 
 
 
