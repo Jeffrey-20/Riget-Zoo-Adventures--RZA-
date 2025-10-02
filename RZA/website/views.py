@@ -53,7 +53,7 @@ def dashboard(request):
     my_records = Record.objects.all()
     context = {'records':my_records}
 
-    return render(request, 'pages/dashboard.html')
+    return render(request, 'pages/dashboard.html',context)
 
 # Creating a record
 @login_required(login_url='my-login')
@@ -71,8 +71,20 @@ def create_record(request):
     return render(request, 'pages/create_record.html', context)
 
 
+# Reading/viewing a record
+@login_required(login_url='my-login')
+def singular_record(request,pk):
+
+    one_record = Record.objects.get(id=pk)
+    context = {'record':one_record}
+    return render(request, 'pages/view-record.html', context=context)
 
 
-
-
+#  update records
+login_required(login_url='my-login')
+def update_record(request,pk):
+    
+    one_record = Record.objects.get(id=pk)
+    context = {'record':one_record}
+    return render(request, 'pages/update-record.html', context=context)
 
