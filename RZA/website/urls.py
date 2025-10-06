@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('book-tickets/', views.book_tickets, name="book-tickets"),
 
-    path('confirmation/<int:pk>/', views.booking_confirmation, name="booking-confirmation"),
+     path('confirmation/<int:booking_id>/', views.booking_confirmation, name='booking_confirmation'),
 
 ]
 

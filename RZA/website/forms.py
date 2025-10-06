@@ -50,12 +50,12 @@ class BookingForm(forms.ModelForm):
 
     class Meta:
         model = Booking
-        fields = ['booking_date', 'adult_tickets', 'child_tickets', 'senior_tickets', 'customer_name', 'email']
+        fields = ['booking_date', 'adult_tickets', 'child_tickets',  'customer_name', 'email']
         widgets = {
             # Ensure ticket counts can't be negative
             'adult_tickets': forms.NumberInput(attrs={'min': 1, 'max': 50}), 
             'child_tickets': forms.NumberInput(attrs={'min': 0, 'max': 50}),
-            'senior_tickets': forms.NumberInput(attrs={'min': 0, 'max': 50}),
+           
         }
 
     def clean(self):
@@ -63,10 +63,10 @@ class BookingForm(forms.ModelForm):
         cleaned_data = super().clean()
         adults = cleaned_data.get('adult_tickets', 0)
         children = cleaned_data.get('child_tickets', 0)
-        seniors = cleaned_data.get('senior_tickets', 0)
+     
 
         # Check that the sum of tickets is greater than zero
-        if adults + children + seniors == 0:
+        if adults + children  == 0:
             raise forms.ValidationError("You must select at least one ticket to proceed.")
 
         return cleaned_data

@@ -1,4 +1,5 @@
 {% extends "pages/base.html" %}
+{% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +8,8 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <h1>Booking Confirmed! ✅</h1>
-    <p>Thank you, **{{ booking.customer_name }}**, your tickets are reserved!</p>
+    <h1>Booking Confirmed! </h1>
+    <p>Thank you, {{ booking.customer_name }}, your tickets are reserved!</p>
 
     <h2>Booking Details</h2>
     <p><strong>Confirmation ID:</strong> #{{ booking.id }}</p>
@@ -19,11 +20,13 @@
     <ul>
         <li>Adults: {{ booking.adult_tickets }}</li>
         <li>Children: {{ booking.child_tickets }}</li>
-        <li>Seniors: {{ booking.senior_tickets }}</li>
+        
     </ul>
 
     <hr>
-    <h2>**TOTAL PRICE: ${{ booking.total_price }}**</h2>
+    <h2>TOTAL PRICE: ${{ booking.total_price }} CONFIRMED </h2>
     <p style="font-style: italic;">We look forward to seeing you at the Zoo!</p>
 </body>
 </html>
+
+{% endblock %}
