@@ -1,0 +1,62 @@
+
+{% extends "pages/base.html" %}
+
+{% block content %}
+<h2>Book Your Zoo Tickets!</h2>
+
+{% if ticket_prices %}
+    <h3>Current Ticket Prices</h3>
+    <ul>
+        {% for name, price in ticket_prices.items %}
+            <li>{{ name }}: ${{ price }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+{% endif %}
+
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form.booking_date.label_tag }}
+        {{ form.booking_date }}
+        {% for error in form.booking_date.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.adult_tickets.label_tag }}
+        {{ form.adult_tickets }}
+    </div>
+    <div class="form-group">
+        {{ form.child_tickets.label_tag }}
+        {{ form.child_tickets }}
+    </div>
+    <div class="form-group">
+        {{ form.senior_tickets.label_tag }}
+        {{ form.senior_tickets }}
+    </div>
+
+    <div class="form-group">
+        {{ form.customer_name.label_tag }}
+        {{ form.customer_name }}
+    </div>
+    <div class="form-group">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+    </div>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Calculate Price & Book</button>
+</form>
+
+{% endblock %}

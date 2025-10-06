@@ -1,5 +1,5 @@
 
-{% extends 'pages/base.html' %}
+{% extends "pages/base.html" %}
 
 {% load crispy_forms_tags %}
 
@@ -15,7 +15,7 @@
         <br>
         <form method="POST" autocomplete="off">
             {% csrf_token %}
-            {{update_form|crispy}}
+            {{form|crispy}}
             <br>
             <button type="submit" class="btm btn-primary w-100 btn-block p-2">Update Record</button>
         </form>

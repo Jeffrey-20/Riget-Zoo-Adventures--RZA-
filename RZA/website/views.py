@@ -1,10 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm, LoginForm
 from .models import Record
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm, CreateRecordForm
+from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm
+from django.urls import reverse
+from .forms import BookingForm
+from .models import Booking, TicketType
+
+
 
 
 # Home page
@@ -73,7 +78,7 @@ def create_record(request):
 
 # Reading/viewing a record
 @login_required(login_url='my-login')
-def singular_record(request,pk):
+def view_record(request,pk):
 
     one_record = Record.objects.get(id=pk)
     context = {'record':one_record}
@@ -81,10 +86,68 @@ def singular_record(request,pk):
 
 
 #  update records
-login_required(login_url='my-login')
-def update_record(request,pk):
-    
+@login_required(login_url='my-login')
+def update_record(request, pk):
     one_record = Record.objects.get(id=pk)
-    context = {'record':one_record}
-    return render(request, 'pages/update-record.html', context=context)
 
+    if request.method == 'POST':
+        form = UpdateRecordForm(request.POST, instance=one_record)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = UpdateRecordForm(instance=one_record)
+
+    context = {'form': form, 'record': one_record}
+    return render(request, 'pages/update-record.html', context)
+
+
+
+#deleting a record
+@login_required(login_url='my-login')
+def delete_record(request, pk):
+    record = Record.objects.get(id=pk)
+    record.delete()
+
+    return redirect("dashboard")
+
+
+@login_required(login_url='my-login')
+def book_tickets(request):
+    """Handles the ticket booking form submission and initial price display."""
+    
+    # Fetch ticket prices for display on the page
+    prices = {t.name: t.base_price for t in TicketType.objects.all()}
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            # The .save() method automatically calculates and sets the total_price
+            booking = form.save() 
+            
+            # Redirect to the confirmation page
+            return redirect(reverse('booking_confirmation', args=[booking.id]))
+    else:
+        # Initial GET request: display an empty form
+        form = BookingForm()
+
+    context = {
+        'form': form,
+        'ticket_prices': prices,
+        'title': 'Book Zoo Tickets',
+    }
+    return render(request, 'pages/book_tickets.html', context)
+
+
+@login_required(login_url='my-login')
+def booking_confirmation(request, booking_id):
+    """Displays the confirmed booking details and total price."""
+    
+    # Use get_object_or_404 to handle invalid IDs gracefully
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    context = {
+        'booking': booking,
+        'title': 'Booking Confirmed',
+    }
+    return render(request, 'pages/confirmation.html', context)

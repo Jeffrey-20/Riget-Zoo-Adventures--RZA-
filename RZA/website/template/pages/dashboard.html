@@ -37,7 +37,7 @@
                     <td>{{ record.city|default:"-" }}</td>
                     <td>{{ record.creation_date|date:"Y-m-d H:i" }}</td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-info">View</a>
+                        <a href="{% url 'view_record' record.id %}" class="btn btn-sm btn-info">View</a>
                     </td>
                 </tr>
                 {% endfor %}

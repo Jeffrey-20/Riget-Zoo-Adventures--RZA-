@@ -16,9 +16,15 @@ urlpatterns = [
 
     path('create-record/', views.create_record, name="create-record"),
 
-    path('update-record/<int:pk>', views.update_record, name="update-record"),
+    path('update-record/<int:pk>/', views.update_record, name="update-record"),
 
-    path('record/<int:pk>', views.singular_record,name="record"),
+    path('view_record/<int:pk>/', views.view_record,name="view_record"),
+
+    path('delete-record/<int:pk>/', views.delete_record, name="delete-record"),
+
+    path('book-tickets/', views.book_tickets, name="book-tickets"),
+
+    path('confirmation/<int:pk>/', views.booking_confirmation, name="booking-confirmation"),
 
 ]
 
