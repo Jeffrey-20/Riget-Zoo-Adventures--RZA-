@@ -70,3 +70,24 @@ class BookingForm(forms.ModelForm):
             raise forms.ValidationError("You must select at least one ticket to proceed.")
 
         return cleaned_data
+    
+class CancelBookingForm(forms.Form):
+    email = forms.EmailField(label="Enter your email to cancel booking")
+    booking_id = forms.IntegerField(label="Booking ID")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        booking_id = cleaned_data.get("booking_id")
+
+        try:
+            booking = Booking.objects.get(id=booking_id, email=email)
+        except Booking.DoesNotExist:
+            raise forms.ValidationError("No booking found for that email and ID.")
+
+        if booking.is_cancelled:
+            raise forms.ValidationError("This booking has already been cancelled.")
+
+        cleaned_data["booking"] = booking
+        return cleaned_data
+

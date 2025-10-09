@@ -1,0 +1,48 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Cancel Your Booking </h1>
+
+<p>Enter your booking details below to cancel your zoo visit.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.booking_id.id_for_label }}">Booking ID:</label>
+        {{ form.booking_id }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.email.id_for_label }}">Email:</label>
+        {{ form.email }}
+    </div>
+
+    {% if form.non_field_errors %}
+        <div style="color: darkred; border: 1px solid darkred; padding: 10px;">
+            {% for error in form.non_field_errors %}
+                <p> {{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <button type="submit" style="background-color: crimson; color: white; margin-top: 15px;">
+        Confirm Cancellation
+    </button>
+</form>
+
+{% if messages %}
+    <ul style="margin-top: 20px; list-style: none;">
+        {% for message in messages %}
+            <li style="color: green;">✅ {{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<hr>
+<a href="{% url 'book-tickets' %}" style="text-decoration: none;">
+    <button type="button" style="background-color: #007bff; color: white;">
+        Back to Booking Page
+    </button>
+</a>
+{% endblock %}

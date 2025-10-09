@@ -57,6 +57,14 @@
     {% endif %}
 
     <button type="submit" class="btn btn-primary">Calculate Price & Book</button>
+<br>
+<!-- ✅ This button will now show correctly -->
+<a href="{% url 'cancel_booking' %}" style="text-decoration: none;">
+    <button type="button" style="background-color: crimson; color: white; margin-top: 15px;">
+        Cancel a Booking
+    </button>
+</a>
+
 </form>
 
 {% endblock %}

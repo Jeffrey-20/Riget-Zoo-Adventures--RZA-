@@ -8,8 +8,9 @@ from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm
 from django.urls import reverse
 from .forms import BookingForm
 from .models import Booking, TicketType
-
-
+from django.contrib import messages
+from .forms import CancelBookingForm
+from .models import Product
 
 
 # Home page
@@ -111,7 +112,7 @@ def delete_record(request, pk):
 
     return redirect("dashboard")
 
-
+#booking a ticket
 @login_required(login_url='my-login')
 def book_tickets(request):
     """Handles the ticket booking form submission and initial price display."""
@@ -139,6 +140,7 @@ def book_tickets(request):
     return render(request, 'pages/book_tickets.html', context)
 
 
+#confirming booked tickets
 @login_required(login_url='my-login')
 def booking_confirmation(request, booking_id):
     """Displays the confirmed booking details and total price."""
@@ -151,3 +153,49 @@ def booking_confirmation(request, booking_id):
         'title': 'Booking Confirmed',
     }
     return render(request, 'pages/confirmation.html', context)
+
+
+#cancel a booking
+@login_required(login_url='my-login')
+def cancel_booking(request):
+    if request.method == "POST":
+        form = CancelBookingForm(request.POST)
+        if form.is_valid():
+            booking = form.cleaned_data["booking"]
+            booking.cancel()
+            messages.success(request, f"Booking #{booking.id} has been cancelled.")
+            return redirect("cancel_booking")
+    else:
+        form = CancelBookingForm()
+
+    return render(request, "pages/cancel_booking.html", {"form": form})
+
+####### Shopping views ###########
+
+def shop_home(request):
+    products = Product.objects.all()
+    return render(request, 'pages/shop_home.html', {'products': products})
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart = request.session.get('cart', {})
+    cart[str(product_id)] = cart.get(str(product_id), 0) + 1
+    request.session['cart'] = cart
+    return redirect('view_cart')
+
+def remove_from_cart(request, product_id):
+    cart = request.session.get('cart', {})
+    if str(product_id) in cart:
+        del cart[str(product_id)]
+    request.session['cart'] = cart
+    return redirect('view_cart')
+
+def view_cart(request):
+    cart = request.session.get('cart', {})
+    products = Product.objects.filter(id__in=cart.keys())
+    total = sum(product.price * cart[str(product.id)] for product in products)
+    return render(request, 'pages/cart.html', {'cart': cart, 'products': products, 'total': total}) 
+
+#############################################
+
+
