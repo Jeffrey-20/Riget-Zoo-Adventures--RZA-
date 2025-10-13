@@ -56,6 +56,12 @@ def user_logout(request):
 # Dashboard (protected page)
 @login_required(login_url='my-login')
 def dashboard(request):
+    '''dashboard
+    This dashboard requires the user to be logged in. It wil
+    the fetch all the records from the database, and add them to
+    the context with the key - records.
+    it then sends this to the dashboard  
+    '''
     my_records = Record.objects.all()
     context = {'records':my_records}
 
@@ -163,6 +169,7 @@ def cancel_booking(request):
         if form.is_valid():
             booking = form.cleaned_data["booking"]
             booking.cancel()
+
             messages.success(request, f"Booking #{booking.id} has been cancelled.")
             return redirect("cancel_booking")
     else:
@@ -197,5 +204,7 @@ def view_cart(request):
     return render(request, 'pages/cart.html', {'cart': cart, 'products': products, 'total': total}) 
 
 #############################################
+
+
 
 

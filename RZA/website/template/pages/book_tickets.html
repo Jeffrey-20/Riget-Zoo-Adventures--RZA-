@@ -2,7 +2,7 @@
 {% extends "pages/base.html" %}
 
 {% block content %}
-<h2>Book Your Zoo Tickets!</h2>
+<h2>Book Your Zoo Tickets!</h2>  <!-- A header for the webpage-->
 
 {% if ticket_prices %}
     <h3>Current Ticket Prices</h3>
@@ -18,7 +18,7 @@
 <form method="post">
     {% csrf_token %}
     
-    <div class="form-group">
+    <div class="form-group"> <!--The calender to which we can select a date for the booking-->
         {{ form.booking_date.label_tag }}
         {{ form.booking_date }}
         {% for error in form.booking_date.errors %}
@@ -26,11 +26,11 @@
         {% endfor %}
     </div>
 
-    <div class="form-group">
+    <div class="form-group">  <!--The number of tickets picked by the adults-->
         {{ form.adult_tickets.label_tag }}
         {{ form.adult_tickets }}
     </div>
-    <div class="form-group">
+    <div class="form-group">  <!--The number of tickets picked by the children-->
         {{ form.child_tickets.label_tag }}
         {{ form.child_tickets }}
     </div>
@@ -56,7 +56,7 @@
         </div>
     {% endif %}
 
-    <button type="submit" class="btn btn-primary">Calculate Price & Book</button>
+    <button type="submit" class="btn btn-primary">Calculate Price & Book</button><!-- A button which claculates the price-->
 <br>
 <!-- ✅ This button will now show correctly -->
 <a href="{% url 'cancel_booking' %}" style="text-decoration: none;">
