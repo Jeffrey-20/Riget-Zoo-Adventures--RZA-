@@ -3,18 +3,18 @@
 
 {% block content %}
 
-    <div class="card">
+    <div class="card">   <!--This is card of the specific user whose data was viewed -->
         <strong>
             <br>
             &nbsp; &nbsp;
-            {{record.last_name|upper}}
+            {{record.last_name|upper}}          <!--This is full name-->
             {{record.first_name}}
         </strong>
         <hr>
 
-        <div class="card-body">
+        <div class="card-body">                 <!--This contains the data is displayed -->
             <p> <strong>ID:</strong>{{record.id}}</p>
-            <p> <strong>Email:</strong>{{record.Email}}</p>
+            <p> <strong>Email:</strong>{{record.email}}</p>
             <p> <strong>Phone Number:</strong>{{record.phone}}</p>
             <p> <strong>Address:</strong>{{record.address}}</p>
             <p> <strong>City:</strong>{{record.city}}</p>
@@ -22,8 +22,8 @@
         </div>
     </div>
     <br>
-    <a href="{% url 'dashboard' %}" class="btn btn-secondary"> Return To Dashboard </a>
-    &nbsp;
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary"> Return To Dashboard </a>    <!-- buttons-->
+    &nbsp; 
     <a href="{% url 'update-record' record.id %}" class="btn btn-info"> Update Record</a>
     &nbsp;
     <a  href="{% url 'delete-record' record.id %}" class="btn btn-info"> Delete</a>

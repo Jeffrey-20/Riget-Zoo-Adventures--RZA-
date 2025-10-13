@@ -12,16 +12,16 @@
         <br>
         <form method="POST" autocomplete="off"  class="mx-auto">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form|crispy}}
             <br>
-            <button type="submit" class="btn btn-primary w-100 btn-block p-2">
+            <button type="submit" class="btn btn-primary w-100 btn-block p-2"><!-- register button-->
                 Create account
             </button>
         </form>
 
         <br>
         <div class="text-center">
-            <p>Already have an account? </p> <a href="{% url '' %}"> Login </a>
+            <p>Already have an account? </p> <a href="{% url '' %}"> Login </a> <!-- login button-->
         </div>
         <br>
     </div>

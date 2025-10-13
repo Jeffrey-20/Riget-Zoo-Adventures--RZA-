@@ -1,5 +1,5 @@
-{% extends 'pages/base.html' %}
-{% load static %}
+{% extends 'pages/base.html' %}<!--connects this page to the base  -->
+{% load static %}<!--connects this page to static folder  -->
 
 
 {% block content %}
@@ -7,16 +7,16 @@
     <div class="test-center">
         <h3>Zoo</h3>
         <br>
-        <h5>Welcome to the our Zoo</h5>
+        <h1>Welcome to the our Zoo</h1>
         <hr>
         <br>
-        <a href="{% url 'register' %}" class="btn btn-primary">Create your account</a>
+        <a href="{% url 'register' %}" class="btn btn-primary">Create your account</a>  <!-- register page -->
     </div>
 
 <br>
    
 
-        <a href="{% url 'my-login' %}" class="">log in</a>
+        <a href="{% url 'my-login' %}" class="">log in</a><!-- login link  -->
     </div>
 
 
@@ -34,7 +34,7 @@
     <!-- Slide 1 -->
     <div class="carousel-item active">
       <div class="card mx-auto shadow-lg" style="max-width: 600px;">
-        <img src="{% static 'images/animals.jpg' %}" class="card-img-top" alt="Slide 1">
+        <img src="{% static 'images/animals.jpg' %}" class="card-img-top" alt="Slide 1"> <!-- image link connected to static  -->
         <div class="card-body text-center">
           <h5 class="card-title">Animals</h5>
           <p class="card-text">A collection of animals in their natural habitat.</p>
@@ -154,8 +154,13 @@
   </button>
 
 </div>
+                                     
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> <!-- link to bootstrap -->
 
     {% endblock %}
+
+
+    <!--Try drop down links for each and everyone of the carasols with description and buttons
+    Also put in a footer 
+    Try adding a picture at the top like a normal pic or a gif  -->

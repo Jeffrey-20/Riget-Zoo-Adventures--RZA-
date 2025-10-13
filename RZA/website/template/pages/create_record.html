@@ -1,6 +1,7 @@
-{% extends 'pages/base.html' %}
+{% extends 'pages/base.html' %} <!--connects this page to the base  -->
 
 {% block content %}
+<!-- Here we create records for the  dashboard page. Can only be done using admin  -->
 <div class="container mt-4">
     <div class="card bg-dark text-light p-4">
         <h2>Create Record</h2>
@@ -12,7 +13,7 @@
             <!-- This will render the form fields -->
             {{ form.as_p }}
 
-            <button type="submit" class="btn btn-primary w-100">Create Record</button>
+            <button type="submit" class="btn btn-primary w-100">Create Record</button> <!-- button  -->
         </form>
     </div>
 </div>

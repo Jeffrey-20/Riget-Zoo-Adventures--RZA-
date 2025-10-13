@@ -11,3 +11,8 @@ h1 {
   height: 500px;
   object-fit: cover; /* crops image nicely instead of stretching */
 }
+
+.model {
+  background-color: rgb(247, 247, 247);
+}
+
