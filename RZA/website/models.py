@@ -5,7 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 
-class Record(models.Model):
+class Record(models.Model):  # Model for the record in dashboard
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
@@ -43,6 +43,7 @@ class Booking(models.Model):
     # We must define 'total_price' as a field if we want to set it in save()
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0) 
 
+#Cancellation fields
     is_cancelled = models.BooleanField(default=False)
     cancelled_at = models.DateTimeField(null=True, blank=True)
 

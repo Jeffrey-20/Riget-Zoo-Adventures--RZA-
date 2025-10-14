@@ -40,6 +40,7 @@ class UpdateRecordForm(forms.ModelForm):
         fields =['first_name', 'last_name', 'email', 'phone', 'address', 'city']
 
 
+#A class for booking 
 class BookingForm(forms.ModelForm):
     # This field uses the HTML5 'date' input type for a native calendar/date picker
     booking_date = forms.DateField(
@@ -54,8 +55,7 @@ class BookingForm(forms.ModelForm):
         widgets = {
             # Ensure ticket counts can't be negative
             'adult_tickets': forms.NumberInput(attrs={'min': 1, 'max': 50}), 
-            'child_tickets': forms.NumberInput(attrs={'min': 0, 'max': 50}),
-           
+            'child_tickets': forms.NumberInput(attrs={'min': 0, 'max': 50}),  
         }
 
     def clean(self):
@@ -71,15 +71,18 @@ class BookingForm(forms.ModelForm):
 
         return cleaned_data
     
+# This class is responsible for cancelling bookings
 class CancelBookingForm(forms.Form):
     email = forms.EmailField(label="Enter your email to cancel booking")
     booking_id = forms.IntegerField(label="Booking ID")
 
     def clean(self):
+        """ This is validation for ensuring deletion of bookings"""
         cleaned_data = super().clean()
         email = cleaned_data.get("email")
         booking_id = cleaned_data.get("booking_id")
 
+        # This is validation for removing bookings
         try:
             booking = Booking.objects.get(id=booking_id, email=email)
         except Booking.DoesNotExist:

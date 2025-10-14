@@ -11,10 +11,19 @@ from .models import Booking, TicketType
 from django.contrib import messages
 from .forms import CancelBookingForm
 from .models import Product
+import logging
+
+logging.basicConfig(filename='santa_log.log', level=logging.DEBUG,
+                    format='%(asctime)s-%(levelname)s -%(message)s')
+
+logger = logging.getLogger(__name__)
+
+
 
 
 # Home page
 def home(request):
+    logger.info("Home page loaded")
     return render(request, 'pages/index.html')
 
 
@@ -37,6 +46,7 @@ def my_login(request):
     if request.method == "POST":
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
+            logger.info("User Logged in")
             user = form.get_user()   # ✅ AuthenticationForm handles authenticate
             login(request, user)
             return redirect('dashboard')
@@ -49,6 +59,7 @@ def my_login(request):
 
 # Logout
 def user_logout(request):
+    logger.info("User Logged Out")
     logout(request)
     return redirect('my-login')
 
@@ -179,25 +190,25 @@ def cancel_booking(request):
 
 ####### Shopping views ###########
 
-def shop_home(request):
+def shop_home(request):  # shop home
     products = Product.objects.all()
     return render(request, 'pages/shop_home.html', {'products': products})
 
-def add_to_cart(request, product_id):
+def add_to_cart(request, product_id): # adding to the cart
     product = get_object_or_404(Product, id=product_id)
     cart = request.session.get('cart', {})
     cart[str(product_id)] = cart.get(str(product_id), 0) + 1
-    request.session['cart'] = cart
-    return redirect('view_cart')
+    request.session['cart'] = cart      # Save the updated 'cart' dictionary back into the session.
+    return redirect('view_cart')         # Redirect the user to the 'view_cart' page
 
-def remove_from_cart(request, product_id):
+def remove_from_cart(request, product_id):  # remnoving from  the cart
     cart = request.session.get('cart', {})
     if str(product_id) in cart:
         del cart[str(product_id)]
     request.session['cart'] = cart
     return redirect('view_cart')
 
-def view_cart(request):
+def view_cart(request):  # Viewing the cart
     cart = request.session.get('cart', {})
     products = Product.objects.filter(id__in=cart.keys())
     total = sum(product.price * cart[str(product.id)] for product in products)

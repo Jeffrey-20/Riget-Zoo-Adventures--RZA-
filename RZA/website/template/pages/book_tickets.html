@@ -1,8 +1,9 @@
-
 {% extends "pages/base.html" %}
+
 
 {% block content %}
 <h2>Book Your Zoo Tickets!</h2>  <!-- A header for the webpage-->
+
 
 {% if ticket_prices %}
     <h3>Current Ticket Prices</h3>
@@ -15,9 +16,11 @@
 {% endif %}
 
 
+
+
 <form method="post">
     {% csrf_token %}
-    
+   
     <div class="form-group"> <!--The calender to which we can select a date for the booking-->
         {{ form.booking_date.label_tag }}
         {{ form.booking_date }}
@@ -25,6 +28,7 @@
             <small class="text-danger">{{ error }}</small>
         {% endfor %}
     </div>
+
 
     <div class="form-group">  <!--The number of tickets picked by the adults-->
         {{ form.adult_tickets.label_tag }}
@@ -39,6 +43,7 @@
         {{ form.senior_tickets }}
     </div>
 
+
     <div class="form-group">
         {{ form.customer_name.label_tag }}  <!--The  space to input the name of the customer-->
         {{ form.customer_name }}
@@ -48,6 +53,7 @@
         {{ form.email }}
     </div>
 
+
     {% if form.non_field_errors %}
         <div class="alert alert-danger">
             {% for error in form.non_field_errors %}  
@@ -56,7 +62,8 @@
         </div>
     {% endif %}
 
-    <button type="submit" class="btn btn-primary">Calculate Price & Book</button><!-- A button which claculates the price-->
+
+    <button type="submit" class="btn btn-success">Calculate Price & Book</button><!-- A button which claculates the price-->
 <br>
 <!-- ✅ This button will now show correctly -->
 <a href="{% url 'cancel_booking' %}" style="text-decoration: none;">
@@ -65,6 +72,9 @@
     </button>
 </a>
 
+
 </form>
 
+
 {% endblock %}
+
