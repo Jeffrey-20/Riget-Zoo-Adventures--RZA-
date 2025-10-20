@@ -1,0 +1,90 @@
+
+[
+    {
+        "id": 1,
+        "topic": "Plants",
+        "question": "What process do plants use to make their own food?",
+        "options": ["Respiration", "Photosynthesis", "Transpiration", "Digestion"],
+        "answer": "Photosynthesis"
+    },
+    {
+        "id": 2,
+        "topic": "Plants",
+        "question": "What part of the plant absorbs water and nutrients from the soil?",
+        "options": ["Stem", "Leaves", "Roots", "Flower"],
+        "answer": "Roots"
+    },
+    {
+        "id": 3,
+        "topic": "Plants",
+        "question": "Which gas do plants release during photosynthesis?",
+        "options": ["Carbon Dioxide", "Nitrogen", "Oxygen", "Hydrogen"],
+        "answer": "Oxygen"
+    },
+    {
+        "id": 4,
+        "topic": "Plants",
+        "question": "What pigment gives plants their green color?",
+        "options": ["Melanin", "Chlorophyll", "Carotene", "Hemoglobin"],
+        "answer": "Chlorophyll"
+    },
+    {
+        "id": 5,
+        "topic": "Plants",
+        "question": "Which part of a flower develops into a fruit?",
+        "options": ["Petal", "Stem", "Ovary", "Root"],
+        "answer": "Ovary"
+    },
+    {
+        "id": 6,
+        "topic": "Plants",
+        "question": "What part of the plant carries water from the roots to the leaves?",
+        "options": ["Stem", "Flower", "Fruit", "Seed"],
+        "answer": "Stem"
+    },
+    {
+        "id": 7,
+        "topic": "Plants",
+        "question": "What are tiny openings on leaves that allow gas exchange called?",
+        "options": ["Pores", "Stomata", "Veins", "Nerves"],
+        "answer": "Stomata"
+    },
+    {
+        "id": 8,
+        "topic": "Plants",
+        "question": "Which part of a plant anchors it in the soil?",
+        "options": ["Stem", "Roots", "Leaves", "Flower"],
+        "answer": "Roots"
+    },
+    {
+        "id": 9,
+        "topic": "Plants",
+        "question": "What do plants need for photosynthesis besides water and carbon dioxide?",
+        "options": ["Light", "Oxygen", "Nitrogen", "Iron"],
+        "answer": "Light"
+    },
+    {
+        "id": 10,
+        "topic": "Plants",
+        "question": "Which of these is NOT a part of a plant cell?",
+        "options": ["Chloroplast", "Cell Wall", "Mitochondria", "marrow"],
+        "answer": "marrow"
+    },
+    {
+        "id": 11,
+        "topic": "Plants",
+        "question": "Where in a plant does photosynthesis mainly occur?",
+        "options": ["Roots", "Stem", "Leaves", "Flowers"],
+        "answer": "Leaves"
+    },
+    {
+        "id": 12,
+        "topic": "Plants",
+        "question": "What type of plants lose their leaves each autumn?",
+        "options": ["Evergreen", "Deciduous", "Coniferous", "Tropical"],
+        "answer": "Deciduous"
+    }
+]
+
+
+
